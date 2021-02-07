@@ -1,6 +1,32 @@
+.monster-nav-link {
+    color: #3B3B3B;
+    font-weight: 600;
+}
+.monster-hover:hover a {
+    background: linear-gradient(salmon, rgb(243, 124, 148));
+    border-radius: 5px;
+}
 
 #mealsDiv {
     display: grid;
-    grid-template-columns: repeat(3,1fr);
+    grid-template-columns: repeat(4,1fr);
     grid-gap: 30px;
+}
+
+
+.mealImgDiv {
+    cursor: pointer;
+}
+
+#ingreidentInfo {
+    margin: auto;
+    width: 50%;
+}
+
+#ingreidentInfo p {
+    font-weight: 400;
+}
+.mealInfoImg {
+    width: 400px;
+    height: 200px;
 }
