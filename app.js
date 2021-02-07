@@ -17,16 +17,18 @@ const searchMeals = (mealsName) => {
         
 }
 
-// not found message
-const notFound = () => {
-    document.getElementById('notFound').innerText = 'Items not found';
-}
+
 
 // display meals
 const displayMeals = meals => {
-    const mealsDiv = document.getElementById('mealsDiv');
+    
+    mealsDiv.innerHTML = '';
+    
+    
     meals.forEach(meal => {
+        
         const singleMealDiv = document.createElement('div');
+        
         const mealInfo = `
 
         <div onclick="mealInfo('${meal.strMeal}')" class="cols-md-3 rounded mealImgDiv">
@@ -44,6 +46,12 @@ const displayMeals = meals => {
     
 }
 
+// not found message
+const notFound = () => {
+    
+    document.getElementById('notFound').innerText = 'Items not found';
+    notFound.innerHTML = '';
+}
 
 // meal info
 const mealInfo = name => {
@@ -51,6 +59,7 @@ const mealInfo = name => {
     fetch(url)
         .then(res => res.json())
         .then(data => renderIngredientsInfo(data.meals))
+        
 }
 
 // render ingredients info
@@ -76,3 +85,4 @@ const renderIngredientsInfo = info => {
         `
     });
 }
+
