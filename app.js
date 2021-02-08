@@ -1,7 +1,7 @@
 // to get search meals and  button function
-const searchBtn = document.getElementById('Searchbutton');
+const searchBtn = document.getElementById('search-button');
 searchBtn.addEventListener('click', () => {
-    const inputMeals = document.getElementById('inputMeals');
+    const inputMeals = document.getElementById('input-meals');
     searchMeals(inputMeals);
 })
 
@@ -12,14 +12,15 @@ const searchMeals = (mealsName) => {
         .then(res => res.json())
         .then(data => displayMeals(data.meals))
         .catch(error => displayErrorMessage('Sorry! Items not found.'))
-        document.getElementById('inputMeals').value = '';
+        document.getElementById('input-meals').value = '';
 }
 
 
 // display meals
 const displayMeals = meals => {
-    mealsDiv.innerText = '';
-    
+    const mealsDiv = document.getElementById('meals-div');
+    mealsDiv.innerHTML = '';
+    errorMessage.innerHTML = '';
     meals.forEach(meal => {
         const singleMealDiv = document.createElement('div');
         const mealInfo = `
@@ -40,7 +41,8 @@ const displayMeals = meals => {
 
 // error message
 const displayErrorMessage = error => {
-    const errorHeader = document.getElementById('itemsNotFound');
+    const errorHeader = document.getElementById('errorMessage');
+    errorHeader.innerText = '';
     errorHeader.innerText = error;
 }
 
@@ -56,25 +58,50 @@ const mealInfo = name => {
 
 // render ingredients info
 const renderIngredientsInfo = info => {
+    const ingreidentsInfo = document.getElementById('ingreident-info');
+    
+    
     info.forEach(ingreident => {
-        const ingreidentsInfo = document.getElementById('ingreidentInfo');
+        
+        const ingreidentArry = [
+            ingreident.strIngredient1,
+            ingreident.strIngredient2,
+            ingreident.strIngredient3,
+            ingreident.strIngredient4,
+            ingreident.strIngredient5,
+            ingreident.strIngredient6,
+            ingreident.strIngredient7,
+            ingreident.strIngredient8,
+            ingreident.strIngredient9,
+            ingreident.strIngredient10,
+            ingreident.strIngredient11,
+            ingreident.strIngredient12,
+            ingreident.strIngredient13,
+            ingreident.strIngredient14,
+            ingreident.strIngredient15,
+            ingreident.strIngredient16,
+            ingreident.strIngredient17,
+            ingreident.strIngredient18,
+            ingreident.strIngredient19,
+            ingreident.strIngredient20
+        ];
+        
         ingreidentsInfo.innerHTML = `
-        <div class="infoDiv">
         <img class="mealInfoImg" src="${ingreident.strMealThumb}">
-        <h3>${ingreident.strMeal}</h3>
         <h5>Ingreidents</h5>
-        <p>${ingreident.strIngredient1}</p>
-        <p>${ingreident.strIngredient2}</p>
-        <p>${ingreident.strIngredient3}</p>
-        <p>${ingreident.strIngredient4}</p>
-        <p>${ingreident.strIngredient5}</p>
-        <p>${ingreident.strIngredient6}</p>
-        <p>${ingreident.strIngredient7}</p>
-        <p>${ingreident.strIngredient8}</p>
-        <p>${ingreident.strIngredient9}</p>
-        <p>${ingreident.strIngredient10}</p>
-        </div>
         `
+        ingreidentArry.forEach(singleIndgredient => {
+            let filterIndegredient = '';
+            if (singleIndgredient != null && singleIndgredient != '') {
+                filterIndegredient = singleIndgredient + filterIndegredient;
+                const newDiv = document.createElement('div');
+                const newDivElement = `
+                        <p><span><i class="fas fa-check-square"></i></span> ${filterIndegredient}</p>
+                `
+                newDiv.innerHTML = newDivElement;
+                ingreidentsInfo.appendChild(newDiv);
+            }
+        });
     });
 }
 
