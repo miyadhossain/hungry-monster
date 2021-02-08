@@ -3,7 +3,6 @@ const searchBtn = document.getElementById('Searchbutton');
 searchBtn.addEventListener('click', () => {
     const inputMeals = document.getElementById('inputMeals');
     searchMeals(inputMeals);
-    
 })
 
 //search meals
@@ -12,25 +11,18 @@ const searchMeals = (mealsName) => {
     fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${mealsName.value}`)
         .then(res => res.json())
         .then(data => displayMeals(data.meals))
-        .catch(error => notFound(error))
+        .catch(error => displayErrorMessage('Sorry! Items not found.'))
         document.getElementById('inputMeals').value = '';
-        
 }
-
 
 
 // display meals
 const displayMeals = meals => {
-    
-    mealsDiv.innerHTML = '';
-    
+    mealsDiv.innerText = '';
     
     meals.forEach(meal => {
-        
         const singleMealDiv = document.createElement('div');
-        
         const mealInfo = `
-
         <div onclick="mealInfo('${meal.strMeal}')" class="cols-md-3 rounded mealImgDiv">
         <div class="col">
         <img src="${meal.strMealThumb}" class="card-img-top ">
@@ -46,20 +38,20 @@ const displayMeals = meals => {
     
 }
 
-// not found message
-const notFound = () => {
-    
-    document.getElementById('notFound').innerText = 'Items not found';
-    notFound.innerHTML = '';
+// error message
+const displayErrorMessage = error => {
+    const errorHeader = document.getElementById('itemsNotFound');
+    errorHeader.innerText = error;
 }
 
 // meal info
 const mealInfo = name => {
+    
     const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`;
     fetch(url)
         .then(res => res.json())
         .then(data => renderIngredientsInfo(data.meals))
-        
+        .catch(error => displayErrorMessage('Sorry! Something went wrong.'))
 }
 
 // render ingredients info
