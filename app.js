@@ -7,36 +7,37 @@ searchBtn.addEventListener('click', () => {
 
 //search meals
 const searchMeals = (mealsName) => {
-    
+
     fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${mealsName.value}`)
         .then(res => res.json())
         .then(data => displayMeals(data.meals))
         .catch(error => displayErrorMessage('Sorry! Items not found.'))
-        document.getElementById('input-meals').value = '';
+    document.getElementById('input-meals').value = '';
 }
-
 
 // display meals
 const displayMeals = meals => {
     const mealsDiv = document.getElementById('meals-div');
     mealsDiv.innerHTML = '';
     errorMessage.innerHTML = '';
+    infoDiv.innerHTML = '';
+
     meals.forEach(meal => {
         const singleMealDiv = document.createElement('div');
         const mealInfo = `
-        <div onclick="mealInfo('${meal.strMeal}')" class="cols-md-3 rounded mealImgDiv">
-        <div class="col">
-        <img src="${meal.strMealThumb}" class="card-img-top ">
-        <div class="card-body bg-light mealDiv">
-          <h5 class="card-title">${meal.strMeal}</h5>
+        <a class="mealLink" href="#infoDiv">
+        <div onclick="mealInfo('${meal.strMeal}')" class="card rounded h-100 mealImgDiv">
+        <img src="${meal.strMealThumb}" class="card-img-top rounded">
+        <div class="card-body bg-light text-center">
+            <h5 class="">${meal.strMeal}</h5>
         </div>
         </div>
-        </div>  
+        </a>
         `
         singleMealDiv.innerHTML = mealInfo;
         mealsDiv.appendChild(singleMealDiv);
     });
-    
+
 }
 
 // error message
@@ -48,7 +49,7 @@ const displayErrorMessage = error => {
 
 // meal info
 const mealInfo = name => {
-    
+
     const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`;
     fetch(url)
         .then(res => res.json())
@@ -58,11 +59,11 @@ const mealInfo = name => {
 
 // render ingredients info
 const renderIngredientsInfo = info => {
-    const ingreidentsInfo = document.getElementById('ingreident-info');
-    
-    
+    const ingreidentsInfo = document.getElementById('infoDiv');
+
+
     info.forEach(ingreident => {
-        
+
         const ingreidentArry = [
             ingreident.strIngredient1,
             ingreident.strIngredient2,
@@ -85,10 +86,11 @@ const renderIngredientsInfo = info => {
             ingreident.strIngredient19,
             ingreident.strIngredient20
         ];
-        
+
         ingreidentsInfo.innerHTML = `
         <img class="mealInfoImg" src="${ingreident.strMealThumb}">
-        <h5>Ingreidents</h5>
+        <h1 class="mt-3">${ingreident.strMeal}</h1>
+        <h5 class="mt-3">Ingreidents</h5>
         `
         ingreidentArry.forEach(singleIndgredient => {
             let filterIndegredient = '';
@@ -96,7 +98,7 @@ const renderIngredientsInfo = info => {
                 filterIndegredient = singleIndgredient + filterIndegredient;
                 const newDiv = document.createElement('div');
                 const newDivElement = `
-                        <p><span><i class="fas fa-check-square"></i></span> ${filterIndegredient}</p>
+                        <p class="mt-3"><span class="icon"><i class="fas fa-check-square"></i></span> ${filterIndegredient}</p>
                 `
                 newDiv.innerHTML = newDivElement;
                 ingreidentsInfo.appendChild(newDiv);

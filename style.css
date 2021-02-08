@@ -1,32 +1,58 @@
+/* nav bar style */
+.hungryNav {
+    font-size: 30px;
+    font-weight: 600;
+}
+.hungry {
+    color: #97a4af;
+}
 .monster-nav-link {
-    color: #3B3B3B;
+    color: lightslategray;
     font-weight: 600;
 }
 .monster-hover:hover a {
-    background: linear-gradient(salmon, rgb(243, 124, 148));
+    background: linear-gradient(#96abc0, #aac0d6);
     border-radius: 5px;
 }
 
+/* search button */
+.btn {
+    background: linear-gradient(#96abc0, #aac0d6);
+}
+
+/* meals div style */
 #meals-div {
     display: grid;
     grid-template-columns: repeat(4,1fr);
     grid-gap: 30px;
 }
 
-
 .mealImgDiv {
     cursor: pointer;
 }
+.mealLink {
+    text-decoration: none;
+    color: lightslategray;
+}
+.mealLink:hover {
+    color: lightslategray;
+}
 
-#ingreident-info {
+/* meal info style */
+#infoDiv {
     margin: auto;
     width: 50%;
 }
 
-#ingreident-info p {
+#infoDiv p {
     font-weight: 400;
 }
 .mealInfoImg {
     width: 400px;
     height: 200px;
+    border-radius: 10px;
+}
+
+.icon {
+    color: #F06C4E;
 }
